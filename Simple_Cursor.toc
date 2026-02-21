@@ -1,0 +1,14 @@
+## Interface: 120001
+## Title: |cff00d9ffSimple Cursor|r
+## Note: A Simple Cursor Circle. /sc for options.
+## Author: Aurs
+## Category: Aurs UI
+## Version: @project-version@
+## IconTexture: Interface\AddOns\Simple_Cursor\Media\icon.png
+## SavedVariables: CursorDB
+## SavedVariablesPerCharacter: CursorDB
+
+## X-Curse-Project-ID: 1402074
+## X-Wago-ID: jK8goj6y
+
+Core.lua
