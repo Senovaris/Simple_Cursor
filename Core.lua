@@ -7,7 +7,7 @@ CursorDB = CursorDB or {
 
 local cursorframe = CreateFrame("Frame", "CursorHighlight", UIParent)
 cursorframe:SetSize(CursorDB.size, CursorDB.size)
-cursorframe:SetFrameStrata("HIGH")
+cursorframe:SetFrameStrata("FULLSCREEN")
 
 cursorframe:Show()
 local cursoricon = cursorframe:CreateTexture(nil, "ARTWORK")
@@ -127,6 +127,7 @@ local function CreateOptionsPanel()
 end
 
 SLASH_CURSORCONFIG1 = "/sc"
+SLASH_CURSORCONFIG2 = "/scr"
 SlashCmdList["CURSORCONFIG"] = function ()
   if not optionsPanel then
     CreateOptionsPanel()
@@ -137,5 +138,5 @@ end
 
 
 C_Timer.After(1, function()
-  print("|cff00d9ffSimple Cursor loaded! |cffFFFFFFType /sc for options or /cursor to hide the circle.|r")
+  print("|cff00d9ffSimple Cursor loaded! |cffFFFFFFType /sc or /scr for options or /cursor to hide the circle.|r")
 end)
