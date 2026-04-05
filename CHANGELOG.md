@@ -1,8 +1,11 @@
-# Simple Cursor
+## [1.4] - 2026-04-05
 
-## [1.2](https://github.com/Senovaris/Simple_Cursor/tree/1.2) (2026-02-21)
-[Full Changelog](https://github.com/Senovaris/Simple_Cursor/commits/1.2) [Previous Releases](https://github.com/Senovaris/Simple_Cursor/releases)
+### Added
+- Circle picker
 
-- Corrected FrameStrata in Core.lua  
-- Create release.yml  
-- Initial commit  
+### Changed 
+- Made the Options panel it's own file instead of one singular file
+
+### Removed
+- Removed redundant code and reworked some structural debt
+
