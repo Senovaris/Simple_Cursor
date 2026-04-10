@@ -1,3 +1,8 @@
+## [1.5] - 2026-04-10
+
+### Fixed
+- Problem with circle not loading per default
+
 ## [1.4] - 2026-04-05
 
 ### Added
