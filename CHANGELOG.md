@@ -1,3 +1,8 @@
+## [1.6] - 2026-04-14
+
+### Added
+- GCD circle around the cursor that is currently stuck at white
+
 ## [1.5] - 2026-04-10
 
 ### Fixed

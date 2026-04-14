@@ -3,6 +3,7 @@ or {
   color = { 1, 1, 1 },
   texture = "Interface\\AddOns\\Simple_Cursor\\Media\\Circle1.tga",
   size = 54,
+  gCD = true,
 }
 
 cursorframe = CreateFrame("Frame", "CursorHighlight", UIParent)
@@ -16,9 +17,36 @@ cursoricon:SetAllPoints(cursorframe)
 cursoricon:SetAlpha(0.9)
 cursoricon:SetVertexColor(CursorDB.color[1], CursorDB.color[2], CursorDB.color[3])
 
+gCD = CreateFrame("Cooldown", "CursorGCD", cursorframe)
+gCD:SetSize(CursorDB.size + 16, CursorDB.size + 16)
+gCD:SetPoint("CENTER", cursorframe, "CENTER", 0, 0)
+gCD:SetSwipeTexture("Interface\\AddOns\\Simple_Cursor\\Media\\Circle1.tga")
+gCD:SetDrawSwipe(true)
+gCD:SetSwipeColor(1, 1, 1, 1)
+-- gCD:SetSwipeColor(CursorDB.color[1], CursorDB.color[2], CursorDB.color[3]) -- Makes the color of the GCD follow the sliders
+gCD:SetDrawBling(false)
+gCD:SetDrawEdge(false)
+gCD:SetHideCountdownNumbers(true)
+gCD:SetReverse(false)
+
+local gCDTracker = CreateFrame("Frame")
+gCDTracker:RegisterEvent("SPELL_UPDATE_COOLDOWN")
+gCDTracker:SetScript("OnEvent", function()
+  local info = C_Spell.GetSpellCooldown(61304)
+  if info and info.startTime > 0 and info.duration > 0 and info.duration <=1.5 then
+    gCD:SetCooldown(info.startTime, info.duration)
+  end
+end)
+
 function ApplyCursorSettings()
   cursoricon:SetVertexColor(CursorDB.color[1], CursorDB.color[2], CursorDB.color[3])
   cursoricon:SetTexture(CursorDB and CursorDB.texture or "Interface\\AddOns\\Simple_Cursor\\Media\\Circle1.tga")
+  gCD:SetSize(CursorDB.size + 16, CursorDB.size + 16)
+  -- gCD:SetSwipeColor(CursorDB.color[1], CursorDB.color[2], CursorDB.color[3]) -- Makes the color of the GCD follow the sliders
+  if CursorDB.gCD then
+    gCD:SetSize(CursorDB.size + 16, CursorDB.size + 16)
+    -- gCD:SetSwipeColor(CursorDB.color[1], CursorDB.color[2], CursorDB.color[3]) -- Same as L44
+  end
 end
 
 local loader = CreateFrame("Frame")

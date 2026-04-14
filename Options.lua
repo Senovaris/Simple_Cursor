@@ -24,6 +24,29 @@ closeButton:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -5, -5)
 panel:SetScript("OnDragStart", panel.StartMoving)
 panel:SetScript("OnDragStop", panel.StopMovingOrSizing)
 
+function ToggleGCDVisibility(enabled)
+  if enabled then
+    gCD:Show()
+    gCD:SetDrawSwipe(true)
+    gCD:SetDrawEdge(false)
+    gCD:SetDrawBling(false)
+  else
+    gCD:Hide()
+    gCD:SetDrawSwipe(false)
+  end
+end
+
+local gCDBox = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
+gCDBox:SetPoint("TOPRIGHT", -110, -40)
+gCDBox.text = gCDBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+gCDBox.text:SetPoint("LEFT", gCDBox, "RIGHT", 5, 0)
+gCDBox.text:SetText("Enable GCD Ring")
+gCDBox:SetChecked(CursorDB.gCD)
+gCDBox:SetScript("OnClick", function(self)
+  CursorDB.gCD = self:GetChecked()
+  ToggleGCDVisibility(CursorDB.gCD)
+end)
+
 local sizeLabel = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 sizeLabel:SetPoint("TOPLEFT", 20, -50)
 sizeLabel:SetText("Cursor Size: " .. CursorDB.size)
@@ -99,6 +122,8 @@ panel:SetScript("OnShow", function()
   redSlider:SetValue(CursorDB.color[1])
   greenSlider:SetValue(CursorDB.color[2])
   blueSlider:SetValue(CursorDB.color[3])
+  gCDBox:SetChecked(CursorDB.gCD)
+  ToggleGCDVisibility(CursorDB.gCD)
   ApplyCursorSettings()
 end)
 
