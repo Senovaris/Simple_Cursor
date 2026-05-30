@@ -1,3 +1,9 @@
+## [1.7] - 2026-05-30
+
+### Changed
+- Remade the whole of the options panel and cleaned up some code.
+- Option to hide the Circle so that you can only have the GCD circle, for example.
+
 ## [1.6] - 2026-04-14
 
 ### Added
