@@ -12,4 +12,5 @@
 ## X-Wago-ID: jK8goj6y
 
 Core.lua
+Widgets.lua
 Options.lua
