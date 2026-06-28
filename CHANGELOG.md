@@ -1,32 +1,41 @@
 ## [1.7.1] - 2026-06-13
 
 ### Added
-- 12.0.7 support
+- Support for patch 12.0.7
 
-## [1.7] - 2026-05-30
+---
+
+## [1.7.0] - 2026-05-30
+
+### Added
+- Option to hide the cursor circle, allowing the GCD ring to display on its own
 
 ### Changed
-- Remade the whole of the options panel and cleaned up some code.
-- Option to hide the Circle so that you can only have the GCD circle, for example.
+- Reworked options panel and cleaned up code
 
-## [1.6] - 2026-04-14
+---
+
+## [1.6.0] - 2026-04-14
 
 ### Added
-- GCD circle around the cursor that is currently stuck at white
+- GCD ring around the cursor
 
-## [1.5] - 2026-04-10
+---
+
+## [1.5.0] - 2026-04-10
 
 ### Fixed
-- Problem with circle not loading per default
+- Circle not loading with default settings
 
-## [1.4] - 2026-04-05
+---
+
+## [1.4.0] - 2026-04-05
 
 ### Added
-- Circle picker
+- Color picker for the circle
 
-### Changed 
-- Made the Options panel it's own file instead of one singular file
+### Changed
+- Options panel split into its own file
 
 ### Removed
-- Removed redundant code and reworked some structural debt
-
+- Redundant code and structural debt
