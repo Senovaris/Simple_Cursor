@@ -1,138 +1,128 @@
 AursUI.SetTheme(1, 0.4, 0)
 
 local function ToggleGCDVisibility(enabled)
-  if enabled then
-    gCD:Show()
-    gCD:SetDrawSwipe(true)
-    gCD:SetDrawEdge(false)
-    gCD:SetDrawBling(false)
-    ApplyGCDColor()
-  else
-    gCD:Hide()
-    gCD:SetDrawSwipe(false)
-  end
+	if enabled then
+		gCD:Show()
+		gCD:SetDrawSwipe(true)
+		gCD:SetDrawEdge(false)
+		gCD:SetDrawBling(false)
+		ApplyGCDColor()
+	else
+		gCD:Hide()
+		gCD:SetDrawSwipe(false)
+	end
 end
 
 local panel = AursUI.CreatePanel(320, 520, "Cursor Settings")
 
 local L = AursUI.NewLayout(panel, 16, -55)
 
-local sizeSlider = L:Slider("Cursor Size", 32, 128,
-function() return CursorDB.size end,
-function(val)
-  CursorDB.size = val
-  cursorframe:SetSize(val, val)
-  gCD:SetSize(val + 16, val + 16)
-end
-)
+local sizeSlider = L:Slider("Cursor Size", 32, 128, function()
+	return CursorDB.size
+end, function(val)
+	CursorDB.size = val
+	cursorframe:SetSize(val, val)
+	gCD:SetSize(val + 16, val + 16)
+end)
 
 L:Space(4)
 L:Separator()
 L:Label("Cursor Color")
 
-local cursorColorSwatch = L:ColorSwatch(
-  function()
-    local c = CursorDB and CursorDB.color or { 1, 1, 1 }
-    return c[1], c[2], c[3]
-  end,
-  function(r, g, b)
-    CursorDB.color[1] = r
-    CursorDB.color[2] = g
-    CursorDB.color[3] = b
-    ApplyCursorColor()
-  end
-)
+local cursorColorSwatch = L:ColorSwatch(function()
+	local c = CursorDB and CursorDB.color or { 1, 1, 1 }
+	return c[1], c[2], c[3]
+end, function(r, g, b)
+	CursorDB.color[1] = r
+	CursorDB.color[2] = g
+	CursorDB.color[3] = b
+	ApplyCursorColor()
+end)
 
-local showCircleCheck = L:Check("Show Circle",
-function() return CursorDB.showCircle ~= false end,
-function(val)
-  CursorDB.showCircle = val
-  cursoricon:SetShown(val)
-end
-)
+local showCircleCheck = L:Check("Show Circle", function()
+	return CursorDB.showCircle ~= false
+end, function(val)
+	CursorDB.showCircle = val
+	cursoricon:SetShown(val)
+end)
 
 L:Space(4)
 L:Separator()
 L:Label("GCD Ring")
 
-local gCDCheck = L:Check("Enable GCD Ring",
-function() return CursorDB.gCD end,
-function(val)
-  CursorDB.gCD = val
-  ToggleGCDVisibility(val)
-end
-)
+local gCDCheck = L:Check("Enable GCD Ring", function()
+	return CursorDB.gCD
+end, function(val)
+	CursorDB.gCD = val
+	ToggleGCDVisibility(val)
+end)
 
 local gCDSwatch
-local classColorCheck = L:Check("Use Class Color",
-function() return CursorDB.gCDClassColor end,
-function(val)
-  CursorDB.gCDClassColor = val
-  gCDSwatch:SetAlpha(val and 0.3 or 1)
-  gCDSwatch:EnableMouse(not val)
-  cursorColorSwatch:SetAlpha(val and 0.3 or 1)
-  cursorColorSwatch:EnableMouse(not val)
-  ApplyGCDColor()
-  ApplyCursorColor()
-end
-)
+local classColorCheck = L:Check("Use Class Color", function()
+	return CursorDB.gCDClassColor
+end, function(val)
+	CursorDB.gCDClassColor = val
+	gCDSwatch:SetAlpha(val and 0.3 or 1)
+	gCDSwatch:EnableMouse(not val)
+	cursorColorSwatch:SetAlpha(val and 0.3 or 1)
+	cursorColorSwatch:EnableMouse(not val)
+	ApplyGCDColor()
+	ApplyCursorColor()
+end)
 
 L:Label("Ring Color", "small")
-gCDSwatch = L:ColorSwatch(
-  function()
-    local c = CursorDB and CursorDB.gCDColor or { 0, 0.85, 1 }
-    return c[1], c[2], c[3]
-  end,
-  function(r, g, b)
-    CursorDB.gCDColor[1] = r
-    CursorDB.gCDColor[2] = g
-    CursorDB.gCDColor[3] = b
-    ApplyGCDColor()
-  end
-)
+gCDSwatch = L:ColorSwatch(function()
+	local c = CursorDB and CursorDB.gCDColor or { 0, 0.85, 1 }
+	return c[1], c[2], c[3]
+end, function(r, g, b)
+	CursorDB.gCDColor[1] = r
+	CursorDB.gCDColor[2] = g
+	CursorDB.gCDColor[3] = b
+	ApplyGCDColor()
+end)
 
 L:Space(4)
 L:Separator()
 L:Label("Cursor Style")
 
 local cursorList = {
-  { name = "Circle 1", value = "Interface\\AddOns\\Simple_Cursor\\Media\\Circle1.tga" },
-  { name = "Circle 2", value = "Interface\\AddOns\\Simple_Cursor\\Media\\Circle2.tga" },
-  { name = "Circle 3", value = "Interface\\AddOns\\Simple_Cursor\\Media\\Circle3.tga" },
+	{ name = "Circle 1", value = "Interface\\AddOns\\Simple_Cursor\\Media\\Circle1.tga" },
+	{ name = "Circle 2", value = "Interface\\AddOns\\Simple_Cursor\\Media\\Circle2.tga" },
+	{ name = "Circle 3", value = "Interface\\AddOns\\Simple_Cursor\\Media\\Circle3.tga" },
 }
 
 local previewSize, padding = 40, 5
 for i, texData in ipairs(cursorList) do
-  local btn = CreateFrame("Button", nil, panel)
-  btn:SetSize(previewSize, previewSize)
-  btn:SetPoint("TOPLEFT", 16 + (i - 1) * (previewSize + padding), L:Y())
-  local tex = btn:CreateTexture(nil, "ARTWORK")
-  tex:SetAllPoints()
-  tex:SetTexture(texData.value)
-  tex:SetVertexColor(CursorDB.color[1], CursorDB.color[2], CursorDB.color[3])
-  btn:SetScript("OnClick", function()
-    CursorDB.texture = texData.value
-    cursoricon:SetTexture(texData.value)
-  end)
+	local btn = CreateFrame("Button", nil, panel)
+	btn:SetSize(previewSize, previewSize)
+	btn:SetPoint("TOPLEFT", 16 + (i - 1) * (previewSize + padding), L:Y())
+	local tex = btn:CreateTexture(nil, "ARTWORK")
+	tex:SetAllPoints()
+	tex:SetTexture(texData.value)
+	tex:SetVertexColor(CursorDB.color[1], CursorDB.color[2], CursorDB.color[3])
+	btn:SetScript("OnClick", function()
+		CursorDB.texture = texData.value
+		cursoricon:SetTexture(texData.value)
+	end)
 end
 
 panel:SetScript("OnShow", function()
-  sizeSlider.SetValue(CursorDB.size)
-  cursorColorSwatch.Refresh()
-  gCDSwatch.Refresh()
-  gCDCheck.SetChecked(CursorDB.gCD)
-  classColorCheck.SetChecked(CursorDB.gCDClassColor)
-  showCircleCheck.SetChecked(CursorDB.showCircle ~= false)
-  local isClass = CursorDB.gCDClassColor
-  gCDSwatch:SetAlpha(isClass and 0.3 or 1)
-  gCDSwatch:EnableMouse(not isClass)
-  cursorColorSwatch:SetAlpha(isClass and 0.3 or 1)
-  cursorColorSwatch:EnableMouse(not isClass)
-  ApplyCursorSettings()
+	sizeSlider.SetValue(CursorDB.size)
+	cursorColorSwatch.Refresh()
+	gCDSwatch.Refresh()
+	gCDCheck.SetChecked(CursorDB.gCD)
+	classColorCheck.SetChecked(CursorDB.gCDClassColor)
+	showCircleCheck.SetChecked(CursorDB.showCircle ~= false)
+	local isClass = CursorDB.gCDClassColor
+	gCDSwatch:SetAlpha(isClass and 0.3 or 1)
+	gCDSwatch:EnableMouse(not isClass)
+	cursorColorSwatch:SetAlpha(isClass and 0.3 or 1)
+	cursorColorSwatch:EnableMouse(not isClass)
+	ApplyCursorSettings()
 end)
 
 SLASH_CURSORCONFIG1 = "/sc"
 SLASH_CURSORCONFIG2 = "/scr"
 SlashCmdList["CURSORCONFIG"] = function()
-  panel.Toggle()
+	panel.Toggle()
 end
