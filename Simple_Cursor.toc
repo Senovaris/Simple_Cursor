@@ -1,4 +1,4 @@
-## Interface: 120100, 120007, 120005
+## Interface: 120105, 120100
 ## Title: |cff00d9ffSimple Cursor|r
 ## Note: A Simple Cursor Circle. /sc for options.
 ## Author: Aurs
@@ -12,5 +12,5 @@
 ## X-Wago-ID: jK8goj6y
 
 Core.lua
-Widgets.lua
+Theme.lua
 Options.lua
